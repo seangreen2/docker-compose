@@ -1,0 +1,95 @@
+services:
+
+    sonarr:
+  
+      cap_drop:
+        - "AUDIT_CONTROL"
+        - "BLOCK_SUSPEND"
+        - "DAC_READ_SEARCH"
+        - "IPC_LOCK"
+        - "IPC_OWNER"
+        - "LEASE"
+        - "LINUX_IMMUTABLE"
+        - "MAC_ADMIN"
+        - "MAC_OVERRIDE"
+        - "NET_ADMIN"
+        - "NET_BROADCAST"
+        - "SYSLOG"
+        - "SYS_ADMIN"
+        - "SYS_BOOT"
+        - "SYS_MODULE"
+        - "SYS_NICE"
+        - "SYS_PACCT"
+        - "SYS_PTRACE"
+        - "SYS_RAWIO"
+        - "SYS_RESOURCE"
+        - "SYS_TIME"
+        - "SYS_TTY_CONFIG"
+        - "WAKE_ALARM"
+  
+      container_name: "sonarr"
+  
+      entrypoint:
+        - "/init"
+  
+      environment:
+        - "PUID=1000"
+        - "PGID=1000"
+        - "PATH=/lsiopy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+        - "HOME=/root"
+        - "LANGUAGE=en_US.UTF-8"
+        - "LANG=en_US.UTF-8"
+        - "TERM=xterm"
+        - "S6_CMD_WAIT_FOR_SERVICES_MAXTIME=0"
+        - "S6_VERBOSITY=1"
+        - "S6_STAGE2_HOOK=/docker-mods"
+        - "VIRTUAL_ENV=/lsiopy"
+        - "LSIO_FIRST_PARTY=true"
+        - "XDG_CONFIG_HOME=/config/xdg"
+        - "SONARR_BRANCH=main"
+  
+      hostname: "8b038108efb1"
+  
+      image: "docker.io/linuxserver/sonarr:latest"
+  
+      ipc: "private"
+  
+      labels:
+        build_version: "Linuxserver.io version:- 3.0.10.1567-ls192 Build-date:- 2023-05-19T23:31:16+00:00"
+        maintainer: "aptalca"
+        org.opencontainers.image.authors: "linuxserver.io"
+        org.opencontainers.image.created: "2023-05-19T23:31:16+00:00"
+        org.opencontainers.image.description: "[Sonarr](https://sonarr.tv/) (formerly\
+          \ NZBdrone) is a PVR for usenet and bittorrent users. It can monitor multiple\
+          \ RSS feeds for new episodes of your favorite shows and will grab, sort and\
+          \ rename them. It can also be configured to automatically upgrade the quality\
+          \ of files already downloaded when a better quality format becomes available.\
+          \  "
+        org.opencontainers.image.documentation: "https://docs.linuxserver.io/images/docker-sonarr"
+        org.opencontainers.image.licenses: "GPL-3.0-only"
+        org.opencontainers.image.ref.name: "bb277ec947c2f4f592ca0badea9b769e5027305f"
+        org.opencontainers.image.revision: "bb277ec947c2f4f592ca0badea9b769e5027305f"
+        org.opencontainers.image.source: "https://github.com/linuxserver/docker-sonarr"
+        org.opencontainers.image.title: "Sonarr"
+        org.opencontainers.image.url: "https://github.com/linuxserver/docker-sonarr/packages"
+        org.opencontainers.image.vendor: "linuxserver.io"
+        org.opencontainers.image.version: "3.0.10.1567-ls192"
+  
+      logging:
+        driver: "journald"
+        options: {}
+  
+      mac_address: "02:42:ac:11:00:0d"
+  
+      network_mode: "bridge"
+  
+      ports:
+        - "8989:8989/tcp"
+  
+      restart: "always"
+  
+      volumes:
+        - "/mnt/drivepool:/drivepool"
+        - "sonarr_config:/config"
+  
+      working_dir: "/"

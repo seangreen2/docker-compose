@@ -1,0 +1,26 @@
+services:
+
+    portainer:
+      container_name: "portainer"
+      entrypoint:
+        - "/portainer"
+      environment:
+        - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      hostname: "0c313ebde98f"
+      image: "portainer/portainer-ee:latest"
+      ipc: "private"
+      labels:
+        io.portainer.server: "true"
+      logging:
+        driver: "journald"
+        options: {}
+      mac_address: "02:42:ac:11:00:05"
+      network_mode: "bridge"
+      ports:
+        - "8000:8000/tcp"
+        - "9000:9000/tcp"
+      restart: "always"
+      volumes:
+        - "/var/run/docker.sock:/var/run/docker.sock"
+        - "portainer_data:/data"
+      working_dir: "/"  

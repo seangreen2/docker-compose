@@ -1,0 +1,92 @@
+services:
+
+    bazarr:
+  
+      cap_drop:
+        - "AUDIT_CONTROL"
+        - "BLOCK_SUSPEND"
+        - "DAC_READ_SEARCH"
+        - "IPC_LOCK"
+        - "IPC_OWNER"
+        - "LEASE"
+        - "LINUX_IMMUTABLE"
+        - "MAC_ADMIN"
+        - "MAC_OVERRIDE"
+        - "NET_ADMIN"
+        - "NET_BROADCAST"
+        - "SYSLOG"
+        - "SYS_ADMIN"
+        - "SYS_BOOT"
+        - "SYS_MODULE"
+        - "SYS_NICE"
+        - "SYS_PACCT"
+        - "SYS_PTRACE"
+        - "SYS_RAWIO"
+        - "SYS_RESOURCE"
+        - "SYS_TIME"
+        - "SYS_TTY_CONFIG"
+        - "WAKE_ALARM"
+  
+      container_name: "bazarr"
+  
+      entrypoint:
+        - "/init"
+  
+      environment:
+        - "PUID=1000"
+        - "PGID=1000"
+        - "PS1=$(whoami)@$(hostname):$(pwd)\\$"
+        - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+        - "HOME=/root"
+        - "TERM=xterm"
+        - "S6_CMD_WAIT_FOR_SERVICES_MAXTIME=0"
+        - "S6_VERBOSITY=1"
+        - "S6_STAGE2_HOOK=/docker-mods"
+        - "LSIO_FIRST_PARTY=true"
+        - "TZ=Etc/UTC"
+  
+      hostname: "367b342a563b"
+  
+      image: "docker.io/linuxserver/bazarr:latest"
+  
+      ipc: "private"
+  
+      labels:
+        build_version: "Linuxserver.io version:- v1.2.1-ls195 Build-date:- 2023-05-09T21:24:05+00:00"
+        maintainer: "chbmb"
+        org.opencontainers.image.authors: "linuxserver.io"
+        org.opencontainers.image.created: "2023-05-09T21:24:05+00:00"
+        org.opencontainers.image.description: "[Bazarr](https://www.bazarr.media/) is\
+          \ a companion application to Sonarr and Radarr. It can manage and download\
+          \ subtitles based on your requirements. You define your preferences by TV\
+          \ show or movie and Bazarr takes care of everything for you."
+        org.opencontainers.image.documentation: "https://docs.linuxserver.io/images/docker-bazarr"
+        org.opencontainers.image.licenses: "GPL-3.0-only"
+        org.opencontainers.image.ref.name: "f55cf1c5884e4dc1cde0745752261803ea137524"
+        org.opencontainers.image.revision: "f55cf1c5884e4dc1cde0745752261803ea137524"
+        org.opencontainers.image.source: "https://github.com/linuxserver/docker-bazarr"
+        org.opencontainers.image.title: "Bazarr"
+        org.opencontainers.image.url: "https://github.com/linuxserver/docker-bazarr/packages"
+        org.opencontainers.image.vendor: "linuxserver.io"
+        org.opencontainers.image.version: "v1.2.1-ls195"
+  
+      logging:
+        driver: "journald"
+        options: {}
+  
+      mac_address: "02:42:ac:11:00:0e"
+  
+      network_mode: "bridge"
+  
+      ports:
+        - "6767:6767/tcp"
+  
+      restart: "unless-stopped"
+  
+      volumes:
+        - "/mnt/drivepool:/drivepool"
+        - "/mnt/drivepool/Movies:/movies"
+        - "/mnt/drivepool/TV Shows:/tv"
+        - "bazarr_data:/config"
+  
+      working_dir: "/"

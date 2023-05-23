@@ -1,0 +1,64 @@
+services:
+
+    watchtower:
+  
+      cap_drop:
+        - "AUDIT_CONTROL"
+        - "BLOCK_SUSPEND"
+        - "DAC_READ_SEARCH"
+        - "IPC_LOCK"
+        - "IPC_OWNER"
+        - "LEASE"
+        - "LINUX_IMMUTABLE"
+        - "MAC_ADMIN"
+        - "MAC_OVERRIDE"
+        - "NET_ADMIN"
+        - "NET_BROADCAST"
+        - "SYSLOG"
+        - "SYS_ADMIN"
+        - "SYS_BOOT"
+        - "SYS_MODULE"
+        - "SYS_NICE"
+        - "SYS_PACCT"
+        - "SYS_PTRACE"
+        - "SYS_RAWIO"
+        - "SYS_RESOURCE"
+        - "SYS_TIME"
+        - "SYS_TTY_CONFIG"
+        - "WAKE_ALARM"
+  
+      container_name: "watchtower"
+  
+      entrypoint:
+        - "/watchtower"
+  
+      environment:
+        - "WATCHTOWER_CLEANUP=true"
+        - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+  
+      expose:
+        - "8080/tcp"
+  
+      hostname: "5562973cf20c"
+  
+      image: "docker.io/containrrr/watchtower:latest"
+  
+      ipc: "private"
+  
+      labels:
+        com.centurylinklabs.watchtower: "true"
+  
+      logging:
+        driver: "journald"
+        options: {}
+  
+      mac_address: "02:42:ac:11:00:02"
+  
+      network_mode: "bridge"
+  
+      restart: "always"
+  
+      volumes:
+        - "/var/run/docker.sock:/var/run/docker.sock"
+  
+      working_dir: "/"

@@ -1,0 +1,81 @@
+services:
+
+    pihole:
+  
+      cap_drop:
+        - "AUDIT_CONTROL"
+        - "BLOCK_SUSPEND"
+        - "DAC_READ_SEARCH"
+        - "IPC_LOCK"
+        - "IPC_OWNER"
+        - "LEASE"
+        - "LINUX_IMMUTABLE"
+        - "MAC_ADMIN"
+        - "MAC_OVERRIDE"
+        - "NET_ADMIN"
+        - "NET_BROADCAST"
+        - "SYSLOG"
+        - "SYS_ADMIN"
+        - "SYS_BOOT"
+        - "SYS_MODULE"
+        - "SYS_NICE"
+        - "SYS_PACCT"
+        - "SYS_PTRACE"
+        - "SYS_RAWIO"
+        - "SYS_RESOURCE"
+        - "SYS_TIME"
+        - "SYS_TTY_CONFIG"
+        - "WAKE_ALARM"
+  
+      container_name: "pihole"
+  
+      entrypoint:
+        - "/s6-init"
+  
+      environment:
+        - "TZ=America/New_york"
+        - "WEBPASSWORD=""
+        - "PATH=/opt/pihole:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+        - "phpver=php"
+        - "PHP_ERROR_LOG=/var/log/lighttpd/error-pihole.log"
+        - "IPv6=True"
+        - "S6_KEEP_ENV=1"
+        - "S6_BEHAVIOUR_IF_STAGE2_FAILS=2"
+        - "S6_CMD_WAIT_FOR_SERVICES_MAXTIME=0"
+        - "FTLCONF_LOCAL_IPV4=0.0.0.0"
+        - "FTL_CMD=no-daemon"
+        - "DNSMASQ_USER=pihole"
+  
+      hostname: "DietPi"
+  
+      image: "docker.io/pihole/pihole:latest"
+  
+      ipc: "private"
+  
+      labels:
+        org.opencontainers.image.created: "2023-03-25T19:18:44.609Z"
+        org.opencontainers.image.description: "Pi-hole in a docker container"
+        org.opencontainers.image.licenses: ""
+        org.opencontainers.image.revision: "aeb42394738aa652845c652b45438fb1edcfbbee"
+        org.opencontainers.image.source: "https://github.com/pi-hole/docker-pi-hole"
+        org.opencontainers.image.title: "docker-pi-hole"
+        org.opencontainers.image.url: "https://github.com/pi-hole/docker-pi-hole"
+        org.opencontainers.image.version: "2023.03.1"
+  
+      logging:
+        driver: "journald"
+        options: {}
+  
+      network_mode: "host"
+  
+      ports:
+        - "53:53/tcp"
+        - "53:53/udp"
+        - "67:67/udp"
+        - "8888:80/tcp"
+  
+      restart: "unless-stopped"
+  
+      volumes:
+        - "pihole:/etc/pihole"
+        - "dnsmasq-pihole:/etc/dnsmasq.d"

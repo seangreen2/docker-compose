@@ -1,0 +1,92 @@
+services:
+
+    radarr:
+  
+      cap_drop:
+        - "AUDIT_CONTROL"
+        - "BLOCK_SUSPEND"
+        - "DAC_READ_SEARCH"
+        - "IPC_LOCK"
+        - "IPC_OWNER"
+        - "LEASE"
+        - "LINUX_IMMUTABLE"
+        - "MAC_ADMIN"
+        - "MAC_OVERRIDE"
+        - "NET_ADMIN"
+        - "NET_BROADCAST"
+        - "SYSLOG"
+        - "SYS_ADMIN"
+        - "SYS_BOOT"
+        - "SYS_MODULE"
+        - "SYS_NICE"
+        - "SYS_PACCT"
+        - "SYS_PTRACE"
+        - "SYS_RAWIO"
+        - "SYS_RESOURCE"
+        - "SYS_TIME"
+        - "SYS_TTY_CONFIG"
+        - "WAKE_ALARM"
+  
+      container_name: "radarr"
+  
+      entrypoint:
+        - "/init"
+  
+      environment:
+        - "PUID=1000"
+        - "PGID=1000"
+        - "PATH=/lsiopy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+        - "PS1=$(whoami)@$(hostname):$(pwd)\\$ "
+        - "HOME=/root"
+        - "TERM=xterm"
+        - "S6_CMD_WAIT_FOR_SERVICES_MAXTIME=0"
+        - "S6_VERBOSITY=1"
+        - "S6_STAGE2_HOOK=/docker-mods"
+        - "VIRTUAL_ENV=/lsiopy"
+        - "LSIO_FIRST_PARTY=true"
+        - "XDG_CONFIG_HOME=/config/xdg"
+  
+      hostname: "c02b428f68bc"
+  
+      image: "docker.io/linuxserver/radarr:latest"
+  
+      ipc: "private"
+  
+      labels:
+        build_version: "Linuxserver.io version:- 4.4.4.7068-ls172 Build-date:- 2023-05-21T16:56:45+00:00"
+        maintainer: "thelamer"
+        org.opencontainers.image.authors: "linuxserver.io"
+        org.opencontainers.image.created: "2023-05-21T16:56:45+00:00"
+        org.opencontainers.image.description: "[Radarr](https://github.com/Radarr/Radarr)\
+          \ - A fork of Sonarr to work with movies à la Couchpotato.  "
+        org.opencontainers.image.documentation: "https://docs.linuxserver.io/images/docker-radarr"
+        org.opencontainers.image.licenses: "GPL-3.0-only"
+        org.opencontainers.image.ref.name: "553a44d22f44992137a3a5fa51cc184b49349fd2"
+        org.opencontainers.image.revision: "553a44d22f44992137a3a5fa51cc184b49349fd2"
+        org.opencontainers.image.source: "https://github.com/linuxserver/docker-radarr"
+        org.opencontainers.image.title: "Radarr"
+        org.opencontainers.image.url: "https://github.com/linuxserver/docker-radarr/packages"
+        org.opencontainers.image.vendor: "linuxserver.io"
+        org.opencontainers.image.version: "4.4.4.7068-ls172"
+  
+      logging:
+        driver: "journald"
+        options: {}
+  
+      mac_address: "02:42:ac:11:00:08"
+  
+      network_mode: "bridge"
+  
+      ports:
+        - "7878:7878/tcp"
+  
+      restart: "always"
+  
+      volumes:
+        - "radarr-config:/config"
+        - "/mnt/drivepool:/drivepool"
+        - "/mnt/drivepool:/drivepool/media"
+        - "/mnt/drivepool:/drivepool/downloads"
+  
+      working_dir: "/"
+  

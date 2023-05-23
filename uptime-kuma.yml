@@ -1,0 +1,29 @@
+services:
+
+    uptime-kuma:
+      command:
+        - "node"
+        - "server/server.js"
+      container_name: "uptime-kuma"
+      entrypoint:
+        - "/usr/bin/dumb-init"
+        - "--"
+        - "extra/entrypoint.sh"
+      environment:
+        - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+        - "NODE_VERSION=16.20.0"
+        - "YARN_VERSION=1.22.19"
+      hostname: "f65c5f3c7c13"
+      image: "louislam/uptime-kuma:1"
+      ipc: "private"
+      logging:
+        driver: "journald"
+        options: {}
+      mac_address: "02:42:ac:11:00:04"
+      network_mode: "bridge"
+      ports:
+        - "3001:3001/tcp"
+      restart: "always"
+      volumes:
+        - "uptime-kuma:/app/data"
+      working_dir: "/app"

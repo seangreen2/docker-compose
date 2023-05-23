@@ -1,0 +1,111 @@
+services:
+
+    tdarr:
+  
+      cap_drop:
+        - "AUDIT_CONTROL"
+        - "BLOCK_SUSPEND"
+        - "DAC_READ_SEARCH"
+        - "IPC_LOCK"
+        - "IPC_OWNER"
+        - "LEASE"
+        - "LINUX_IMMUTABLE"
+        - "MAC_ADMIN"
+        - "MAC_OVERRIDE"
+        - "NET_ADMIN"
+        - "NET_BROADCAST"
+        - "SYSLOG"
+        - "SYS_ADMIN"
+        - "SYS_BOOT"
+        - "SYS_MODULE"
+        - "SYS_NICE"
+        - "SYS_PACCT"
+        - "SYS_PTRACE"
+        - "SYS_RAWIO"
+        - "SYS_RESOURCE"
+        - "SYS_TIME"
+        - "SYS_TTY_CONFIG"
+        - "WAKE_ALARM"
+  
+      container_name: "tdarr"
+  
+      devices:
+        - "/dev/dri:/dev/dri"
+  
+      entrypoint:
+        - "/init"
+  
+      environment:
+        - "HANDBRAKE=1.5.1"
+        - "internalNode=true"
+        - "nodeID=Server-Node"
+        - "serverIP=0.0.0.0"
+        - "serverPort=8266"
+        - "webUIPort=8265"
+        - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+        - "HOME=/home/Tdarr"
+        - "LANGUAGE=en_US.UTF-8"
+        - "LANG=en_US.UTF-8"
+        - "TERM=xterm"
+        - "S6_CMD_WAIT_FOR_SERVICES_MAXTIME=0"
+        - "LIBVA_DRIVERS_PATH=/usr/lib/x86_64-linux-gnu/dri"
+        - "LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu"
+        - "NVIDIA_DRIVER_CAPABILITIES=compute,video,utility"
+        - "NVIDIA_VISIBLE_DEVICES=all"
+        - "WEB_UI_PORT=8265"
+        - "SERVER_PORT=8266"
+        - "NODE_PORT=8267"
+        - "PUID=1000"
+        - "PGID=1000"
+        - "UMASK=002"
+        - "TZ=America/New_York"
+  
+      hostname: "c4900c8d87cb"
+  
+      image: "docker.io/haveagitgat/tdarr:2.00.18.2"
+  
+      ipc: "private"
+  
+      labels:
+        build_version: "Linuxserver.io version:- fa335518-ls75 Build-date:- 2022-05-17T07:05:13+02:00"
+        maintainer: "TheLamer"
+        org.opencontainers.image.authors: "linuxserver.io"
+        org.opencontainers.image.created: "2022-05-17T07:05:13+02:00"
+        org.opencontainers.image.description: "baseimage-ubuntu image by linuxserver.io"
+        org.opencontainers.image.documentation: "https://docs.linuxserver.io/images/docker-baseimage-ubuntu"
+        org.opencontainers.image.licenses: "GPL-3.0-only"
+        org.opencontainers.image.ref.name: "024f16e2eced4dd05a8400fbeba4bfd6fc1005b1"
+        org.opencontainers.image.revision: "024f16e2eced4dd05a8400fbeba4bfd6fc1005b1"
+        org.opencontainers.image.source: "https://github.com/linuxserver/docker-baseimage-ubuntu"
+        org.opencontainers.image.title: "Baseimage-ubuntu"
+        org.opencontainers.image.url: "https://github.com/linuxserver/docker-baseimage-ubuntu/packages"
+        org.opencontainers.image.vendor: "linuxserver.io"
+        org.opencontainers.image.version: "fa335518-ls75"
+  
+      logging:
+        driver: "journald"
+        options: {}
+  
+      mac_address: "02:42:ac:11:00:0b"
+  
+      network_mode: "bridge"
+  
+      ports:
+        - "8265:8265/tcp"
+        - "8266:8266/tcp"
+  
+      privileged: yes
+  
+      restart: "always"
+  
+      security_opt:
+        - "label=disable"
+  
+      volumes:
+        - "tdarr-logs:/app/logs"
+        - "tdarr-server:/app/server"
+        - "/mnt/drivepool:/drivepool/media"
+        - "/mnt/drivepool:/drivepool/transcode_cache"
+        - "tdarr-configs:/app/configs"
+  
+      working_dir: "/"
