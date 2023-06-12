@@ -47,34 +47,22 @@ services:
       - "PYTHON_SETUPTOOLS_VERSION=58.1.0"
       - "LC_ALL=C"
 
-    hostname: "081e30b01804"
+    hostname: "archive-warrior"
 
     image: "atdr.meo.ws/archiveteam/warrior-dockerfile:latest"
-
-    ipc: "private"
-
-    labels:
-      org.opencontainers.image.created: "2021-06-08T14:03:49Z"
-      org.opencontainers.image.revision: "54a26b7546c21191fbbf0b45f4984ea8a1567287"
-      org.opencontainers.image.source: "https://github.com/ArchiveTeam/warrior-dockerfile.git"
-      org.opencontainers.image.url: "https://github.com/ArchiveTeam/warrior-dockerfile"
-      version: "20230408.01"
-      wget-at.version: "1.21.3-at.20230208.01"
 
     logging:
       driver: "journald"
       options: {}
-
-    mac_address: "02:42:ac:11:00:0f"
 
     network_mode: "bridge"
 
     ports:
       - "8001:8001/tcp"
 
-    restart: "always"
+    restart: "unless-stopped"
 
-    user: "warrior"
+    user: "1000"
 
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"

@@ -1,87 +1,66 @@
 services:
 
-    overseer:
-  
-      cap_drop:
-        - "AUDIT_CONTROL"
-        - "BLOCK_SUSPEND"
-        - "DAC_READ_SEARCH"
-        - "IPC_LOCK"
-        - "IPC_OWNER"
-        - "LEASE"
-        - "LINUX_IMMUTABLE"
-        - "MAC_ADMIN"
-        - "MAC_OVERRIDE"
-        - "NET_ADMIN"
-        - "NET_BROADCAST"
-        - "SYSLOG"
-        - "SYS_ADMIN"
-        - "SYS_BOOT"
-        - "SYS_MODULE"
-        - "SYS_NICE"
-        - "SYS_PACCT"
-        - "SYS_PTRACE"
-        - "SYS_RAWIO"
-        - "SYS_RESOURCE"
-        - "SYS_TIME"
-        - "SYS_TTY_CONFIG"
-        - "WAKE_ALARM"
-  
-      container_name: "overseer"
-  
-      entrypoint:
-        - "/init"
-  
-      environment:
-        - "PUID=1000"
-        - "PGID=1000"
-        - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-        - "PS1=$(whoami)@$(hostname):$(pwd)\\$ "
-        - "HOME=/config"
-        - "TERM=xterm"
-        - "S6_CMD_WAIT_FOR_SERVICES_MAXTIME=0"
-        - "S6_VERBOSITY=1"
-        - "S6_STAGE2_HOOK=/docker-mods"
-        - "LSIO_FIRST_PARTY=true"
-  
-      hostname: "3dd0c0747933"
-  
-      image: "docker.io/linuxserver/overseerr:latest"
-  
-      ipc: "private"
-  
-      labels:
-        build_version: "Linuxserver.io version:- v1.32.5-ls64 Build-date:- 2023-05-10T18:35:47+00:00"
-        maintainer: "nemchik"
-        org.opencontainers.image.authors: "linuxserver.io"
-        org.opencontainers.image.created: "2023-05-10T18:35:47+00:00"
-        org.opencontainers.image.description: "[Overseerr](https://overseerr.dev/) is\
-          \ a request management and media discovery tool built to work with your existing\
-          \ Plex ecosystem.  "
-        org.opencontainers.image.documentation: "https://docs.linuxserver.io/images/docker-overseerr"
-        org.opencontainers.image.licenses: "GPL-3.0-only"
-        org.opencontainers.image.ref.name: "0bc69f18683a0a23bb2804ec2858a42aaff9aa96"
-        org.opencontainers.image.revision: "0bc69f18683a0a23bb2804ec2858a42aaff9aa96"
-        org.opencontainers.image.source: "https://github.com/linuxserver/docker-overseerr"
-        org.opencontainers.image.title: "Overseerr"
-        org.opencontainers.image.url: "https://github.com/linuxserver/docker-overseerr/packages"
-        org.opencontainers.image.vendor: "linuxserver.io"
-        org.opencontainers.image.version: "v1.32.5-ls64"
-  
-      logging:
-        driver: "journald"
-        options: {}
-  
-      mac_address: "02:42:ac:11:00:0c"
-  
-      network_mode: "bridge"
-  
-      ports:
-        - "5000:5055/tcp"
-  
-      restart: "always"
-  
-      volumes:
-        - "overseer_config:/config"
-  
-      working_dir: "/"
+  overseer:
+
+    cap_drop:
+      - "AUDIT_CONTROL"
+      - "BLOCK_SUSPEND"
+      - "DAC_READ_SEARCH"
+      - "IPC_LOCK"
+      - "IPC_OWNER"
+      - "LEASE"
+      - "LINUX_IMMUTABLE"
+      - "MAC_ADMIN"
+      - "MAC_OVERRIDE"
+      - "NET_ADMIN"
+      - "NET_BROADCAST"
+      - "SYSLOG"
+      - "SYS_ADMIN"
+      - "SYS_BOOT"
+      - "SYS_MODULE"
+      - "SYS_NICE"
+      - "SYS_PACCT"
+      - "SYS_PTRACE"
+      - "SYS_RAWIO"
+      - "SYS_RESOURCE"
+      - "SYS_TIME"
+      - "SYS_TTY_CONFIG"
+      - "WAKE_ALARM"
+
+    container_name: "overseer"
+
+    entrypoint:
+      - "/init"
+
+    environment:
+      - "PUID=1000"
+      - "PGID=1000"
+      - "PATH=/lsiopy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      - "PS1=$(whoami)@$(hostname):$(pwd)\\$ "
+      - "HOME=/config"
+      - "TERM=xterm"
+      - "S6_CMD_WAIT_FOR_SERVICES_MAXTIME=0"
+      - "S6_VERBOSITY=1"
+      - "S6_STAGE2_HOOK=/docker-mods"
+      - "VIRTUAL_ENV=/lsiopy"
+      - "LSIO_FIRST_PARTY=true"
+
+    hostname: "overseer"
+
+    image: "docker.io/linuxserver/overseerr:latest"
+
+    logging:
+      driver: "journald"
+      options: {}
+
+    network_mode: "bridge"
+
+    ports:
+      - "5000:5055/tcp"
+
+    restart: "unless-stopped"
+
+    volumes:
+      - "${DOCKER_VOLUME_STORAGE:-/mnt/docker-volumes}/overseer/config:/config"
+
+    working_dir: "/"

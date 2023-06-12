@@ -1,15 +1,66 @@
-version: "3.8"
-
 services:
-  app:
-    container_name: uptime-kuma
-    hostname: uptime-kuma
-    image: louislam/uptime-kuma
-    restart: always
+
+  uptime-kuma:
+
+    cap_drop:
+      - "AUDIT_CONTROL"
+      - "BLOCK_SUSPEND"
+      - "DAC_READ_SEARCH"
+      - "IPC_LOCK"
+      - "IPC_OWNER"
+      - "LEASE"
+      - "LINUX_IMMUTABLE"
+      - "MAC_ADMIN"
+      - "MAC_OVERRIDE"
+      - "NET_ADMIN"
+      - "NET_BROADCAST"
+      - "SYSLOG"
+      - "SYS_ADMIN"
+      - "SYS_BOOT"
+      - "SYS_MODULE"
+      - "SYS_NICE"
+      - "SYS_PACCT"
+      - "SYS_PTRACE"
+      - "SYS_RAWIO"
+      - "SYS_RESOURCE"
+      - "SYS_TIME"
+      - "SYS_TTY_CONFIG"
+      - "WAKE_ALARM"
+
+    command:
+      - "node"
+      - "server/server.js"
+
+    container_name: "uptime-kuma"
+
+    entrypoint:
+      - "/usr/bin/dumb-init"
+      - "--"
+      - "extra/entrypoint.sh"
+
+    environment:
+      - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      - "NODE_VERSION=16.20.0"
+      - "YARN_VERSION=1.22.19"
+
+    hostname: "uptime-kuma"
+
+    image: "docker.io/louislam/uptime-kuma:1"
+
+    ipc: "private"
+
+    logging:
+      driver: "journald"
+      options: {}
+
+    network_mode: "bridge"
+
     ports:
-      - 3001:3001
-    dns:
-      - 1.1.1.1 # Change to Pihole DNS
-      - 8.8.8.8
+      - "3001:3001/tcp"
+
+    restart: "unless-stopped"
+
     volumes:
-      - ${DOCKER_VOLUME_STORAGE:-/mnt/docker-volumes}/uptimekuma:/app/data
+      - "${DOCKER_VOLUME_STORAGE:-/mnt/docker-volumes}/uptime-kuma/data:/app/data"
+
+    working_dir: "/app"

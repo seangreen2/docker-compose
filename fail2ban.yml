@@ -14,4 +14,3 @@ services:
     restart: unless-stopped
     volumes:
       - ${DOCKER_VOLUME_STORAGE:-/mnt/docker-volumes}/fail2Ban/data:/data
-      - /path/to/my/logs/to/monitor:/var/log #change this

@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  duplicati:
+    container_name: duplicati
+    entrypoint:
+      - /init
+    ports:
+      - 8200:8200 # MGMT UI
+    environment:
+      - PUID=0
+      - PGID=1000
+      - TZ=America/New_York
+    hostname: duplicati
+    image: linuxserver/duplicati:latest
+
+    restart: unless-stopped
+    volumes:
+      - ${DOCKER_VOLUME_STORAGE:-/mnt/docker-volumes}/duplicati/backups:/backups
+      - ${DOCKER_VOLUME_STORAGE:-/mnt/docker-volumes}/duplicati/config:/config
+      - /media/drivepool:/source # change this

@@ -7,13 +7,13 @@ services:
     image: pihole/pihole:latest
     # For DHCP it is recommended to remove these ports and instead add: network_mode: "host"
     ports:
-      - "53:53/tcp" # DNS TCP
-      - "53:53/udp" # DNS UDP
-      - "80:80/tcp" # WEB ADMIN GUI
+      - "192.168.1.8:53:53/tcp" # DNS TCP
+      - "192.168.1.8:53:53/udp" # DNS UDP
+      - "8888:80/tcp" # WEB ADMIN GUI
       #- "67:67/udp" # Only required if you are using Pi-hole as your DHCP server
     environment:
       TZ: 'America/New_York'
-      WEBPASSWORD: 'MySecureLoginPasswordForWebApp' # Change this
+      WEBPASSWORD: 'CHANGEME' # Change this
     # Volumes store your data between container upgrades
     volumes:
       - ${DOCKER_VOLUME_STORAGE:-/mnt/docker-volumes}/pihole/data:/etc/pihole

@@ -1,89 +1,70 @@
 services:
 
-    tautulli:
-  
-      cap_drop:
-        - "AUDIT_CONTROL"
-        - "BLOCK_SUSPEND"
-        - "DAC_READ_SEARCH"
-        - "IPC_LOCK"
-        - "IPC_OWNER"
-        - "LEASE"
-        - "LINUX_IMMUTABLE"
-        - "MAC_ADMIN"
-        - "MAC_OVERRIDE"
-        - "NET_ADMIN"
-        - "NET_BROADCAST"
-        - "SYSLOG"
-        - "SYS_ADMIN"
-        - "SYS_BOOT"
-        - "SYS_MODULE"
-        - "SYS_NICE"
-        - "SYS_PACCT"
-        - "SYS_PTRACE"
-        - "SYS_RAWIO"
-        - "SYS_RESOURCE"
-        - "SYS_TIME"
-        - "SYS_TTY_CONFIG"
-        - "WAKE_ALARM"
-  
-      container_name: "tautulli"
-  
-      entrypoint:
-        - "/init"
-  
-      environment:
-        - "PGID=1000"
-        - "PS1=$(whoami)@$(hostname):$(pwd)\\$"
-        - "PUID=1000"
-        - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-        - "HOME=/root"
-        - "TERM=xterm"
-        - "S6_CMD_WAIT_FOR_SERVICES_MAXTIME=0"
-        - "S6_VERBOSITY=1"
-        - "S6_STAGE2_HOOK=/docker-mods"
-        - "LSIO_FIRST_PARTY=true"
-        - "TAUTULLI_DOCKER=True"
-  
-      hostname: "a99ea53634f2"
-  
-      image: "docker.io/linuxserver/tautulli:latest"
-  
-      ipc: "private"
-  
-      labels:
-        build_version: "Linuxserver.io version:- v2.12.1-ls71 Build-date:- 2023-03-14T21:57:26+01:00"
-        maintainer: "nemchik,thelamer"
-        org.opencontainers.image.authors: "linuxserver.io"
-        org.opencontainers.image.created: "2023-03-14T21:57:26+01:00"
-        org.opencontainers.image.description: "[Tautulli](http://tautulli.com) is a\
-          \ python based web application for monitoring, analytics and notifications\
-          \ for Plex Media Server."
-        org.opencontainers.image.documentation: "https://docs.linuxserver.io/images/docker-tautulli"
-        org.opencontainers.image.licenses: "GPL-3.0-only"
-        org.opencontainers.image.ref.name: "f9dd78c9c63f197b6ba3ac146b61bc6dab1109fc"
-        org.opencontainers.image.revision: "f9dd78c9c63f197b6ba3ac146b61bc6dab1109fc"
-        org.opencontainers.image.source: "https://github.com/linuxserver/docker-tautulli"
-        org.opencontainers.image.title: "Tautulli"
-        org.opencontainers.image.url: "https://github.com/linuxserver/docker-tautulli/packages"
-        org.opencontainers.image.vendor: "linuxserver.io"
-        org.opencontainers.image.version: "v2.12.1-ls71"
-  
-      logging:
-        driver: "journald"
-        options: {}
-  
-      mac_address: "02:42:ac:11:00:10"
-  
-      network_mode: "bridge"
-  
-      ports:
-        - "8181:8181/tcp"
-  
-      restart: "always"
-  
-      volumes:
-        - "tautulli_data:/config"
-        - "/mnt/drivepool:/drivepool"
-  
-      working_dir: "/"
+  tautulli:
+
+    cap_drop:
+      - "AUDIT_CONTROL"
+      - "BLOCK_SUSPEND"
+      - "DAC_READ_SEARCH"
+      - "IPC_LOCK"
+      - "IPC_OWNER"
+      - "LEASE"
+      - "LINUX_IMMUTABLE"
+      - "MAC_ADMIN"
+      - "MAC_OVERRIDE"
+      - "NET_ADMIN"
+      - "NET_BROADCAST"
+      - "SYSLOG"
+      - "SYS_ADMIN"
+      - "SYS_BOOT"
+      - "SYS_MODULE"
+      - "SYS_NICE"
+      - "SYS_PACCT"
+      - "SYS_PTRACE"
+      - "SYS_RAWIO"
+      - "SYS_RESOURCE"
+      - "SYS_TIME"
+      - "SYS_TTY_CONFIG"
+      - "WAKE_ALARM"
+
+    container_name: "tautulli"
+
+    entrypoint:
+      - "/init"
+
+    environment:
+      - "PGID=1000"
+      - "PS1=$(whoami)@$(hostname):$(pwd)\\$"
+      - "PUID=1000"
+      - "PATH=/lsiopy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      - "HOME=/root"
+      - "TERM=xterm"
+      - "S6_CMD_WAIT_FOR_SERVICES_MAXTIME=0"
+      - "S6_VERBOSITY=1"
+      - "S6_STAGE2_HOOK=/docker-mods"
+      - "VIRTUAL_ENV=/lsiopy"
+      - "LSIO_FIRST_PARTY=true"
+      - "TAUTULLI_DOCKER=True"
+
+    hostname: "tautulli"
+
+    image: "docker.io/linuxserver/tautulli:latest"
+
+    ipc: "private"
+
+    logging:
+      driver: "journald"
+      options: {}
+
+    network_mode: "bridge"
+
+    ports:
+      - "8181:8181/tcp"
+
+    restart: "unless-stopped"
+
+    volumes:
+      - "/media/drivepool:/drivepool"
+      - "${DOCKER_VOLUME_STORAGE:-/mnt/docker-volumes}/tautulli/config:/config"
+
+    working_dir: "/"

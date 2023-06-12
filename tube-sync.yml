@@ -1,71 +1,69 @@
 services:
 
-    tubesync:
-  
-      cap_drop:
-        - "AUDIT_CONTROL"
-        - "BLOCK_SUSPEND"
-        - "DAC_READ_SEARCH"
-        - "IPC_LOCK"
-        - "IPC_OWNER"
-        - "LEASE"
-        - "LINUX_IMMUTABLE"
-        - "MAC_ADMIN"
-        - "MAC_OVERRIDE"
-        - "NET_ADMIN"
-        - "NET_BROADCAST"
-        - "SYSLOG"
-        - "SYS_ADMIN"
-        - "SYS_BOOT"
-        - "SYS_MODULE"
-        - "SYS_NICE"
-        - "SYS_PACCT"
-        - "SYS_PTRACE"
-        - "SYS_RAWIO"
-        - "SYS_RESOURCE"
-        - "SYS_TIME"
-        - "SYS_TTY_CONFIG"
-        - "WAKE_ALARM"
-  
-      container_name: "tubesync"
-  
-      entrypoint:
-        - "/init"
-  
-      environment:
-        - "PGID=1000"
-        - "PUID=1000"
-        - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-        - "DEBIAN_FRONTEND=noninteractive"
-        - "HOME=/root"
-        - "LANGUAGE=en_US.UTF-8"
-        - "LANG=en_US.UTF-8"
-        - "LC_ALL=en_US.UTF-8"
-        - "TERM=xterm"
-        - "S6_CMD_WAIT_FOR_SERVICES_MAXTIME=0"
-        - "PYTHONPATH=/app:"
-  
-      hostname: "41f93f41dcf7"
-  
-      image: "ghcr.io/meeb/tubesync:latest"
-  
-      ipc: "private"
-  
-      logging:
-        driver: "journald"
-        options: {}
-  
-      mac_address: "02:42:ac:11:00:09"
-  
-      network_mode: "bridge"
-  
-      ports:
-        - "4848:4848/tcp"
-  
-      restart: "always"
-  
-      volumes:
-        - "tube_sync_data:/config"
-        - "/mnt/drivepool/Youtube:/downloads"
-  
-      working_dir: "/app"
+  tubesync:
+
+    cap_drop:
+      - "AUDIT_CONTROL"
+      - "BLOCK_SUSPEND"
+      - "DAC_READ_SEARCH"
+      - "IPC_LOCK"
+      - "IPC_OWNER"
+      - "LEASE"
+      - "LINUX_IMMUTABLE"
+      - "MAC_ADMIN"
+      - "MAC_OVERRIDE"
+      - "NET_ADMIN"
+      - "NET_BROADCAST"
+      - "SYSLOG"
+      - "SYS_ADMIN"
+      - "SYS_BOOT"
+      - "SYS_MODULE"
+      - "SYS_NICE"
+      - "SYS_PACCT"
+      - "SYS_PTRACE"
+      - "SYS_RAWIO"
+      - "SYS_RESOURCE"
+      - "SYS_TIME"
+      - "SYS_TTY_CONFIG"
+      - "WAKE_ALARM"
+
+    container_name: "tubesync"
+
+    entrypoint:
+      - "/init"
+
+    environment:
+      - "PGID=1000"
+      - "PUID=1000"
+      - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      - "DEBIAN_FRONTEND=noninteractive"
+      - "HOME=/root"
+      - "LANGUAGE=en_US.UTF-8"
+      - "LANG=en_US.UTF-8"
+      - "LC_ALL=en_US.UTF-8"
+      - "TERM=xterm"
+      - "S6_CMD_WAIT_FOR_SERVICES_MAXTIME=0"
+      - "PYTHONPATH=/app:"
+
+    hostname: "tubesync"
+
+    image: "ghcr.io/meeb/tubesync:latest"
+
+    ipc: "private"
+
+    logging:
+      driver: "journald"
+      options: {}
+
+    network_mode: "bridge"
+
+    ports:
+      - "4848:4848/tcp"
+
+    restart: "unless-stopped"
+
+    volumes:
+      - "${DOCKER_VOLUME_STORAGE:-/mnt/docker-volumes}/tubesync/config:/config"
+      - "/media/drivepool/Youtube:/downloads"
+
+    working_dir: "/app"

@@ -1,93 +1,70 @@
 services:
 
-    plex_meta_manager:
-  
-      cap_drop:
-        - "AUDIT_CONTROL"
-        - "BLOCK_SUSPEND"
-        - "DAC_READ_SEARCH"
-        - "IPC_LOCK"
-        - "IPC_OWNER"
-        - "LEASE"
-        - "LINUX_IMMUTABLE"
-        - "MAC_ADMIN"
-        - "MAC_OVERRIDE"
-        - "NET_ADMIN"
-        - "NET_BROADCAST"
-        - "SYSLOG"
-        - "SYS_ADMIN"
-        - "SYS_BOOT"
-        - "SYS_MODULE"
-        - "SYS_NICE"
-        - "SYS_PACCT"
-        - "SYS_PTRACE"
-        - "SYS_RAWIO"
-        - "SYS_RESOURCE"
-        - "SYS_TIME"
-        - "SYS_TTY_CONFIG"
-        - "WAKE_ALARM"
-  
-      container_name: "plex_meta_manager"
-  
-      entrypoint:
-        - "/init-pmm"
-  
-      environment:
-        - "PUID=1000"
-        - "PGID=1000"
-        - "PS1=$(whoami)@$(hostname):$(pwd)\\$"
-        - "PMM_RUN=false"
-        - "PMM_OVERLAYS=true"
-        - "PMM_TIME=05:00"
-        - "TZ=America/New_York"
-        - "PATH=/lsiopy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-        - "HOME=/config"
-        - "TERM=xterm"
-        - "S6_CMD_WAIT_FOR_SERVICES_MAXTIME=0"
-        - "S6_VERBOSITY=1"
-        - "S6_STAGE2_HOOK=/init-hook"
-        - "VIRTUAL_ENV=/lsiopy"
-        - "LSIO_FIRST_PARTY=true"
-        - "PYTHONIOENCODING=utf-8"
-  
-      hostname: "9f9ab2ab77ed"
-  
-      image: "docker.io/linuxserver/plex-meta-manager:latest"
-  
-      ipc: "private"
-  
-      labels:
-        build_version: "Linuxserver.io version:- v1.19.0-ls61 Build-date:- 2023-05-19T19:57:08+00:00"
-        maintainer: "thespad"
-        org.opencontainers.image.authors: "linuxserver.io"
-        org.opencontainers.image.created: "2023-05-19T19:57:08+00:00"
-        org.opencontainers.image.description: "[Plex-meta-manager](https://github.com/meisnate12/Plex-Meta-Manager)\
-          \ is a Python 3 script that can be continuously run using YAML configuration\
-          \ files to update on a schedule the metadata of the movies, shows, and collections\
-          \ in your libraries as well as automatically build collections based on various\
-          \ methods all detailed in the wiki."
-        org.opencontainers.image.documentation: "https://docs.linuxserver.io/images/docker-plex-meta-manager"
-        org.opencontainers.image.licenses: "GPL-3.0-only"
-        org.opencontainers.image.ref.name: "d2634a0dd39a2672f96fd03c77b8b82328bb4276"
-        org.opencontainers.image.revision: "d2634a0dd39a2672f96fd03c77b8b82328bb4276"
-        org.opencontainers.image.source: "https://github.com/linuxserver/docker-plex-meta-manager"
-        org.opencontainers.image.title: "Plex-meta-manager"
-        org.opencontainers.image.url: "https://github.com/linuxserver/docker-plex-meta-manager/packages"
-        org.opencontainers.image.vendor: "linuxserver.io"
-        org.opencontainers.image.version: "v1.19.0-ls61"
-  
-      logging:
-        driver: "journald"
-        options: {}
-  
-      mac_address: "02:42:ac:11:00:0a"
-  
-      network_mode: "bridge"
-  
-      restart: "unless-stopped"
-  
-      volumes:
-        - "plex-meta-manager:/config"
-  
-      working_dir: "/"
-  
+  plex-meta-manager:
+
+    cap_drop:
+      - "AUDIT_CONTROL"
+      - "BLOCK_SUSPEND"
+      - "DAC_READ_SEARCH"
+      - "IPC_LOCK"
+      - "IPC_OWNER"
+      - "LEASE"
+      - "LINUX_IMMUTABLE"
+      - "MAC_ADMIN"
+      - "MAC_OVERRIDE"
+      - "NET_ADMIN"
+      - "NET_BROADCAST"
+      - "SYSLOG"
+      - "SYS_ADMIN"
+      - "SYS_BOOT"
+      - "SYS_MODULE"
+      - "SYS_NICE"
+      - "SYS_PACCT"
+      - "SYS_PTRACE"
+      - "SYS_RAWIO"
+      - "SYS_RESOURCE"
+      - "SYS_TIME"
+      - "SYS_TTY_CONFIG"
+      - "WAKE_ALARM"
+
+    container_name: "plex-meta-manager"
+
+    entrypoint:
+      - "/init-pmm"
+
+    environment:
+      - "PUID=1000"
+      - "PGID=1000"
+      - "PS1=$(whoami)@$(hostname):$(pwd)\\$"
+      - "PMM_RUN=false"
+      - "PMM_OVERLAYS=true"
+      - "PMM_TIME=05:00"
+      - "TZ=America/New_York"
+      - "PATH=/lsiopy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      - "HOME=/config"
+      - "TERM=xterm"
+      - "S6_CMD_WAIT_FOR_SERVICES_MAXTIME=0"
+      - "S6_VERBOSITY=1"
+      - "S6_STAGE2_HOOK=/init-hook"
+      - "VIRTUAL_ENV=/lsiopy"
+      - "LSIO_FIRST_PARTY=true"
+      - "PYTHONIOENCODING=utf-8"
+
+    hostname: "plex-meta-manager"
+
+    image: "docker.io/linuxserver/plex-meta-manager:latest"
+
+    ipc: "private"
+
+    logging:
+      driver: "journald"
+      options: {}
+
+    network_mode: "bridge"
+
+    restart: "unless-stopped"
+
+    volumes:
+      - "${DOCKER_VOLUME_STORAGE:-/mnt/docker-volumes}/plex-meta-manager/config:/config"
+
+    working_dir: "/"
