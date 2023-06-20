@@ -12,6 +12,7 @@ services:
       - ${DOCKER_VOLUME_STORAGE:-/mnt/docker-volumes}/radarr/config:/config
       - /media/drivepool:/movies
       - /media/drivepool:/downloads # Should be the same as the download client's folder
+    network_mode: "bridge"
     ports:
       - 7878:7878
     restart: unless-stopped

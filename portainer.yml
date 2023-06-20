@@ -14,7 +14,6 @@ services:
       logging:
         driver: "journald"
         options: {}
-      mac_address: "02:42:ac:11:00:05"
       network_mode: "bridge"
       ports:
         - "8000:8000/tcp"
@@ -22,5 +21,5 @@ services:
       restart: "always"
       volumes:
         - "/var/run/docker.sock:/var/run/docker.sock"
-        - "portainer_data:/data"
+        - "${DOCKER_VOLUME_STORAGE:-/mnt/docker-volumes}/portainer/data:/data"
       working_dir: "/"  

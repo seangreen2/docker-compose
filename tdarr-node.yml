@@ -2,31 +2,6 @@ services:
 
     tdarr-node:
   
-      cap_drop:
-        - "AUDIT_CONTROL"
-        - "BLOCK_SUSPEND"
-        - "DAC_READ_SEARCH"
-        - "IPC_LOCK"
-        - "IPC_OWNER"
-        - "LEASE"
-        - "LINUX_IMMUTABLE"
-        - "MAC_ADMIN"
-        - "MAC_OVERRIDE"
-        - "NET_ADMIN"
-        - "NET_BROADCAST"
-        - "SYSLOG"
-        - "SYS_ADMIN"
-        - "SYS_BOOT"
-        - "SYS_MODULE"
-        - "SYS_NICE"
-        - "SYS_PACCT"
-        - "SYS_PTRACE"
-        - "SYS_RAWIO"
-        - "SYS_RESOURCE"
-        - "SYS_TIME"
-        - "SYS_TTY_CONFIG"
-        - "WAKE_ALARM"
-  
       container_name: "tdarr-node"
   
       devices:
@@ -64,28 +39,10 @@ services:
   
       ipc: "private"
   
-      labels:
-        build_version: "Linuxserver.io version:- 9ebe5da5-ls105 Build-date:- 2023-01-31T05:46:21+01:00"
-        maintainer: "TheLamer"
-        org.opencontainers.image.authors: "linuxserver.io"
-        org.opencontainers.image.created: "2023-01-31T05:46:21+01:00"
-        org.opencontainers.image.description: "baseimage-ubuntu image by linuxserver.io"
-        org.opencontainers.image.documentation: "https://docs.linuxserver.io/images/docker-baseimage-ubuntu"
-        org.opencontainers.image.licenses: "GPL-3.0-only"
-        org.opencontainers.image.ref.name: "f50a66e46cf4ee6052aed60c235bf041dffd3070"
-        org.opencontainers.image.revision: "f50a66e46cf4ee6052aed60c235bf041dffd3070"
-        org.opencontainers.image.source: "https://github.com/linuxserver/docker-baseimage-ubuntu"
-        org.opencontainers.image.title: "Baseimage-ubuntu"
-        org.opencontainers.image.url: "https://github.com/linuxserver/docker-baseimage-ubuntu/packages"
-        org.opencontainers.image.vendor: "linuxserver.io"
-        org.opencontainers.image.version: "9ebe5da5-ls105"
-  
       logging:
         driver: "journald"
         options: {}
-  
-      mac_address: "02:42:ac:11:00:02"
-  
+          
       network_mode: "bridge"
   
       ports:

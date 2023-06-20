@@ -17,5 +17,6 @@ services:
     restart: unless-stopped
     ports:
       - "9925:80" # adjust to your liking 
+    network_mode: "bridge"
     volumes:
       - ${DOCKER_VOLUME_STORAGE:-/mnt/docker-volumes}/mealie/data:/app/data/    

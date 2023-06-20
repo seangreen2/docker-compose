@@ -15,6 +15,7 @@ services:
       - 81:81/tcp # MGMT UI
       - 80:80/tcp # HTTP
     restart: unless-stopped
+    network_mode: "bridge"
     healthcheck:
       test: ["CMD", "/bin/check-health"]
       interval: 30s

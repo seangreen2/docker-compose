@@ -12,6 +12,7 @@ services:
       - ${DOCKER_VOLUME_STORAGE:-/mnt/docker-volumes}/sonarr/config:/config
       - /media/drivepool:/data/tv
       - /media/drivepool:/downloads # Should be the same as the download client's folder
+    network_mode: "bridge"
     ports:
       - 8989:8989
     restart: unless-stopped

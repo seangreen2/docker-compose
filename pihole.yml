@@ -15,6 +15,7 @@ services:
       TZ: 'America/New_York'
       WEBPASSWORD: 'CHANGEME' # Change this
     # Volumes store your data between container upgrades
+    network_mode: "bridge"
     volumes:
       - ${DOCKER_VOLUME_STORAGE:-/mnt/docker-volumes}/pihole/data:/etc/pihole
       - ${DOCKER_VOLUME_STORAGE:-/mnt/docker-volumes}/pihole/dnsmasq:/etc/dnsmasq.d

@@ -2,31 +2,6 @@ services:
 
   plex:
 
-    cap_drop:
-      - "AUDIT_CONTROL"
-      - "BLOCK_SUSPEND"
-      - "DAC_READ_SEARCH"
-      - "IPC_LOCK"
-      - "IPC_OWNER"
-      - "LEASE"
-      - "LINUX_IMMUTABLE"
-      - "MAC_ADMIN"
-      - "MAC_OVERRIDE"
-      - "NET_ADMIN"
-      - "NET_BROADCAST"
-      - "SYSLOG"
-      - "SYS_ADMIN"
-      - "SYS_BOOT"
-      - "SYS_MODULE"
-      - "SYS_NICE"
-      - "SYS_PACCT"
-      - "SYS_PTRACE"
-      - "SYS_RAWIO"
-      - "SYS_RESOURCE"
-      - "SYS_TIME"
-      - "SYS_TTY_CONFIG"
-      - "WAKE_ALARM"
-
     container_name: "plex"
 
     devices:
@@ -77,27 +52,6 @@ services:
     image: "linuxserver/plex:latest"
 
     ipc: "private"
-
-    labels:
-      build_version: "Linuxserver.io version:- 1.30.2.6563-3d4dc0cce-ls151 Build-date:-\
-        \ 2023-02-09T21:12:09+01:00"
-      maintainer: "thelamer"
-      org.opencontainers.image.authors: "linuxserver.io"
-      org.opencontainers.image.created: "2023-02-09T21:12:09+01:00"
-      org.opencontainers.image.description: "[Plex](https://plex.tv) organizes video,\
-        \ music and photos from personal media libraries and streams them to smart\
-        \ TVs, streaming boxes and mobile devices. This container is packaged as a\
-        \ standalone Plex Media Server. has always been a top priority. Straightforward\
-        \ design and bulk actions mean getting things done faster."
-      org.opencontainers.image.documentation: "https://docs.linuxserver.io/images/docker-plex"
-      org.opencontainers.image.licenses: "GPL-3.0-only"
-      org.opencontainers.image.ref.name: "35597783c6530f609ca2bb711b9399dd07efa7fd"
-      org.opencontainers.image.revision: "35597783c6530f609ca2bb711b9399dd07efa7fd"
-      org.opencontainers.image.source: "https://github.com/linuxserver/docker-plex"
-      org.opencontainers.image.title: "Plex"
-      org.opencontainers.image.url: "https://github.com/linuxserver/docker-plex/packages"
-      org.opencontainers.image.vendor: "linuxserver.io"
-      org.opencontainers.image.version: "1.30.2.6563-3d4dc0cce-ls151"
 
     logging:
       driver: "journald"

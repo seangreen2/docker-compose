@@ -14,6 +14,8 @@ services:
     hostname: duplicati
     image: linuxserver/duplicati:latest
 
+    network_mode: "bridge"
+
     restart: unless-stopped
     volumes:
       - ${DOCKER_VOLUME_STORAGE:-/mnt/docker-volumes}/duplicati/backups:/backups
